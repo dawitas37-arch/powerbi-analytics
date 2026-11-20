@@ -1,0 +1,12 @@
+-- Add each measure to the table named MonthlyOperations after importing the synthetic CSV.
+Total Requests = SUM(MonthlyOperations[RequestsReceived])
+Completed Requests = SUM(MonthlyOperations[RequestsCompleted])
+Pending Requests = SUM(MonthlyOperations[RequestsPending])
+Overdue Requests = SUM(MonthlyOperations[RequestsOverdue])
+Quality Flags = SUM(MonthlyOperations[QualityFlags])
+Completion Rate = DIVIDE([Completed Requests], [Total Requests], 0)
+Overdue Rate = DIVIDE([Overdue Requests], [Total Requests], 0)
+Quality Flag Rate = DIVIDE([Quality Flags], [Completed Requests], 0)
+Weighted Avg Resolution Days = DIVIDE(SUMX(MonthlyOperations, MonthlyOperations[AvgResolutionDays] * MonthlyOperations[RequestsCompleted]), [Completed Requests], 0)
+Prior Month Completed = CALCULATE([Completed Requests], DATEADD('Calendar'[Date], -1, MONTH))
+Completed MoM % = DIVIDE([Completed Requests] - [Prior Month Completed], [Prior Month Completed], 0)

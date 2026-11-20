@@ -1,0 +1,6 @@
+Calendar = CALENDAR(MIN(MonthlyOperations[MonthStart]), EOMONTH(MAX(MonthlyOperations[MonthStart]),0))
+-- Create an active one-to-many relationship Calendar[Date] -> MonthlyOperations[MonthStart].
+-- Mark Calendar as a date table using Calendar[Date].
+Year = YEAR('Calendar'[Date])
+Month Number = MONTH('Calendar'[Date])
+Month Label = FORMAT('Calendar'[Date], "MMM yyyy")
